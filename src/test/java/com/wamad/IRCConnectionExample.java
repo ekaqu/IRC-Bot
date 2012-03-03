@@ -1,7 +1,6 @@
 package com.wamad;
 
 import com.google.common.base.Throwables;
-import org.apache.camel.util.TimeUtils;
 import org.schwering.irc.lib.IRCConnection;
 import org.schwering.irc.lib.IRCEventListener;
 import org.schwering.irc.lib.IRCModeParser;
