@@ -1,5 +1,6 @@
 package com.wamad;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.base.Throwables;
 import org.schwering.irc.lib.IRCConnection;
 import org.schwering.irc.lib.IRCEventListener;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class IRCConnectionExample {
   
   public static void main(String[] args) throws InterruptedException {
+    Stopwatch timer = new Stopwatch().start();
     IRCConnection conn = new IRCConnection(
       "irc.freenode.net",
       6667,
@@ -30,76 +32,95 @@ public class IRCConnectionExample {
     final PrintStream out = System.out;
 
     conn.addIRCEventListener(new IRCEventListener() {
+      private Stopwatch stopwatch = new Stopwatch().start();
       public void onRegistered() {
         out.println("Registered");
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onDisconnected() {
         out.println("Disconnected");
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onError(final String msg) {
         out.println("Error: " + msg);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onError(final int num, final String msg) {
         out.println("Error: num ("+num+"), msg ("+msg+")");
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onInvite(final String chan, final IRCUser user, final String passiveNick) {
         out.println("invite: chan ("+chan+"), user("+user+"), pass("+passiveNick+")");
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onJoin(final String chan, final IRCUser user) {
         out.println("join - " + chan + ", " + user);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onKick(final String chan, final IRCUser user, final String passiveNick, final String msg) {
         out.println("kick - " + chan + ", " + user + ", " + passiveNick + ", " + msg);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onMode(final String chan, final IRCUser user, final IRCModeParser modeParser) {
         out.println("mode - " + chan + ", " + user + ", " + modeParser);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onMode(final IRCUser user, final String passiveNick, final String mode) {
         out.println("mode - " + user + ", " + passiveNick + ", " + mode);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onNick(final IRCUser user, final String newNick) {
         out.println("Nikc - " + user + ", " + newNick);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onNotice(final String target, final IRCUser user, final String msg) {
         out.println("notice - " + target + ", " + user + ", " + msg);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onPart(final String chan, final IRCUser user, final String msg) {
         out.println("part - " + chan + ", " + user + ", " + msg);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onPing(final String ping) {
         out.println("ping - "  + ping);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onPrivmsg(final String target, final IRCUser user, final String msg) {
         out.println("privmsg - " + target + ", " + user + ", " + msg);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onQuit(final IRCUser user, final String msg) {
         out.println("quit - " + user + ", " + msg);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onReply(final int num, final String value, final String msg) {
         out.println("reply - " + num + ", " + value + ", " + msg);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void onTopic(final String chan, final IRCUser user, final String topic) {
         out.println("topic - " + chan + ", " + user + ", " + topic);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
 
       public void unknown(final String prefix, final String command, final String middle, final String trailing) {
         out.println("unknown - " + prefix + ", " + command + ", " + middle + ", " + trailing);
+        out.println("time ("+stopwatch.elapsedMillis());
       }
     });
     conn.setDaemon(true);
@@ -112,6 +133,8 @@ public class IRCConnectionExample {
       out.println("Connected?");
       
       conn.doJoin("##gibson");
+      
+      System.out.println("Time taken: " + timer.elapsedMillis());
 
       while(true) {
         conn.doPrivmsg("the_minh_net", "YOU ARE THE MINH");
