@@ -1,0 +1,29 @@
+<html>
+<head>
+ <LINK href="css/main.css" rel="stylesheet" type="text/css">
+<LINK href="css/bootstrap.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){ 
+			$('#textarea').load('content.txt');
+		});
+	</script>
+<title> Amazing IRC Level 1 </title>
+</head>
+<body style="height:100%;">
+<div id="chat-box" style="margin-right:auto;margin-left:auto;width:500px;margin-top:10%;">
+	<h1> Amazing Begins Now! </h1>
+	<textarea class="input-xlarge" id="textarea" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 300px; margin-left: 0px; margin-right: 0px; width: 440px; "></textarea>
+	<form class="well" action="/hello" method="post" style="width:400px;">
+ 		<label>Amazing1</label>
+ 		<input type="text" class="span3" name="content" placeholder="Type something..." style="height:25px;width:400px;"><br />
+ 		<button type="submit" class="btn">Submit</button>
+	<form>
+</div>
+
+</body>
+</html>
+
+
+
+
