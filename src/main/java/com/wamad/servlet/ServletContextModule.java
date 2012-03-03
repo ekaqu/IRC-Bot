@@ -9,8 +9,8 @@ import com.google.inject.servlet.ServletModule;
 public class ServletContextModule extends ServletModule {
   @Override
   protected void configureServlets() {
-    super.configureServlets();
+//    super.configureServlets();
 
-//    serve("/post").with(MyServlet.class);
+    serve("/post").with(Post.class);
   }
 }
