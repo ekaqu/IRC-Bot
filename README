@@ -1,0 +1,12 @@
+This project was created as a hack day project while at rackspace.
+
+The code has a few things happening:
+  1) IRC Java client
+  2) Server with servlets to post to IRC
+  3) Web client interface to the IRC chat
+
+Authors:
+  Minh Nguyen
+  Sumit Kumar
+  Arnold Bajet
+  David Capwell
