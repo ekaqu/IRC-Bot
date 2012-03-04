@@ -39,9 +39,11 @@
         /* Send the data using post and put the results in a div */
         $.post( url, data,
           function(data) {
-            alert(data);
-        $("#chat-msg").append(data);
-          });
+					            alert(data);
+            var obj = jQuery.parseJSON(data);
+            var msg = obj.name + ": " + obj.say + "\n";
+            $("#chat-msg").append(msg);          
+				});
   
       });
     
