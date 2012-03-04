@@ -1,67 +1,25 @@
 <html>
 <head>
- <LINK href="css/main.css" rel="stylesheet" type="text/css">
-<LINK href="css/bootstrap.css" rel="stylesheet" type="text/css">
-  <script type="text/javascript" src="js/jquery.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function(){ 
-      $('#textarea').load('content.txt');
-      
-      $('#chatform').submit(function(event) {
-         /* stop form from submitting normally */
-        event.preventDefault();   
-    
-        /* get some values from elements on the page: */
-        var $form = $( this ),
-        term1 = $form.find( 'input[name="name"]' ).val(),
-        term2 = $form.find( 'input[name="content"]' ).val(),
-        url = $form.attr( 'action' ); 
-        
-        /*var s = term2.split(" "); 
-        var s2 = "";
-
-        for(i = 1; i < s.length; i++){
-          s2 += " " +  s[i];
-        }*/
-        
-        var data = {
-          name: term1,
-          say: term2
-        };
-
-        var request = JSON.stringify(data);
-        /*var name = JSON.stringify(s[0]);
-        var msg = JSON.stringify(s2);
-         */
-        $("#chat-msg").append(data);
-              
-
-        /* Send the data using post and put the results in a div */
-        $.post( url, data,
-          function(data) {
-					            alert(data);
-            var obj = jQuery.parseJSON(data);
-            var msg = obj.name + ": " + obj.say + "\n";
-            $("#chat-msg").append(msg);          
-				});
-  
-      });
-    
-    
-    });
-  </script>
-<title> Amazing IRC Level 1 </title>
+    <LINK href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <LINK href="css/main.css" rel="stylesheet" type="text/css">
+    <title> Amazing IRC Level 1 </title>
 </head>
-<body style="height:100%;">
-<div id="chat-box" style="margin-right:auto;margin-left:auto;width:500px;margin-top:10%;">
-  <h1> Amazing Begins Now! </h1>
-  <textarea id="chat-msg" class="input-xlarge" id="textarea" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 300px; margin-left: 0px; margin-right: 0px; width: 440px; "></textarea>
-  <form id="chatform" class="well" action="/v1/post" method="post" style="width:400px;">
-    <input type="text" class="span2" name="name" placeholder="Amazing Man"> <br />
-    <input type="text" class="span3" name="content" placeholder="Type something..." style="height:25px;width:400px;"><br />
-    <button type="submit" class="btn-inverse">Submit</button>
-  <form>
+<body>
+<div id="chat-box">
+    <h1> Amazing Begins Now! </h1>
+    <textarea id="chat-msg" class="input-xlarge" id="textarea" rows="3"></textarea>
+
+    <form id="chatform" class="well" action="/v1/post" method="post">
+        <input type="text" class="span2" name="name" placeholder="Amazing Man">
+        <br/>
+        <input type="text" class="span3" name="content"
+               placeholder="Type something...">
+        <br/>
+        <button type="submit" class="btn-inverse">Submit</button>
+    </form>
 </div>
 
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" rel="javascript" src="js/ircchat.js"></script>
 </body>
 </html>

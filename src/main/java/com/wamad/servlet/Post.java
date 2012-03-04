@@ -4,7 +4,6 @@ import com.google.common.base.Throwables;
 import com.wamad.IRCClient;
 import com.wamad.Message;
 import org.codehaus.jackson.map.ObjectMapper;
-import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Date: 3/3/12
@@ -52,12 +50,11 @@ public class Post extends HttpServlet {
 
     List<Message> messages = client.getAndClearMessages();
     // convert
+    String data = mapper.writeValueAsString(messages);
 
 //    response.setContentType("application/json");
     response.setContentType("text/html");
     response.setStatus(HttpServletResponse.SC_OK);
-    String data = mapper.writeValueAsString(messages);
-//    response.getWriter().println("{'say' : '"+say+"'}");
     response.getWriter().println(data);
 
   }
