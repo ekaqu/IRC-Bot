@@ -11,7 +11,6 @@ public class ServletContextModule extends ServletModule {
   protected void configureServlets() {
     System.out.println("Adding mapping");
 
-    serve("/post").with(Post.class);
-    serve("/get").with(Post.class);
+    serve("/v1/post").with(Post.class);
   }
 }
