@@ -9,8 +9,9 @@ import com.google.inject.servlet.ServletModule;
 public class ServletContextModule extends ServletModule {
   @Override
   protected void configureServlets() {
-//    super.configureServlets();
+    System.out.println("Adding mapping");
 
     serve("/post").with(Post.class);
+    serve("/get").with(Post.class);
   }
 }

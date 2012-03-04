@@ -1,27 +1,28 @@
-<web-app id="Filesystem_Navigator" version="2.4" 
-  xmlns="http://java.sun.com/xml/ns/j2ee" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<web-app id="Filesystem_Navigator" version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-  <!-- 
-    CH This is boilerplate from the Guice Tutorial, which means you don't need to use web.xml, 
-    but use Guice-Servlet pseudo-declarative procedural-java calls instead. 
-    Change the code in ServletContextAdaptor, loaded using the listener declaration below 
-  -->
+    <!--
+      CH This is boilerplate from the Guice Tutorial, which means you don't need to use web.xml,
+      but use Guice-Servlet pseudo-declarative procedural-java calls instead.
+      Change the code in ServletContextAdaptor, loaded using the listener declaration below
+    -->
 
-  <filter>
-      <filter-name>guiceFilter</filter-name>
-      <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+    <filter>
+        <filter-name>guiceFilter</filter-name>
+        <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
     </filter>
 
-  <filter-mapping>
-      <filter-name>guiceFilter</filter-name>
-      <url-pattern>/v1/*</url-pattern>
-  </filter-mapping>
+    <filter-mapping>
+        <filter-name>guiceFilter</filter-name>
+        <url-pattern>/v1/*</url-pattern>
+    </filter-mapping>
 
-  <listener>
-    <listener-class>com.wamad.servlet.IRCServletContextListener</listener-class>
-  </listener>
+    <listener>
+        <listener-class>com.wamad.servlet.IRCServletContextListener
+        </listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>post</servlet-name>

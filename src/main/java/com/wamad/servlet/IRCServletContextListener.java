@@ -12,6 +12,7 @@ import com.wamad.impl.IRCModule;
 public class IRCServletContextListener extends GuiceServletContextListener {
   @Override
   protected Injector getInjector() {
+    System.out.println("Creating Injector");
     return Guice.createInjector(
       new IRCModule(),
       new ServletContextModule());
