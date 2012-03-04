@@ -3,6 +3,7 @@ package com.wamad.servlet;
 import com.google.common.base.Throwables;
 import com.wamad.IRCClient;
 import com.wamad.Message;
+import org.codehaus.jackson.map.ObjectMapper;
 import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class Post extends HttpServlet {
   private final IRCClient client;
   private final String chatRoom;
+  private final ObjectMapper mapper = new ObjectMapper();
 
   @Inject
   public Post(final IRCClient client, @Named("wamad.irc.chat") final String chatRoom) {
@@ -54,7 +56,9 @@ public class Post extends HttpServlet {
 //    response.setContentType("application/json");
     response.setContentType("text/html");
     response.setStatus(HttpServletResponse.SC_OK);
-    response.getWriter().println("{'say' : '"+say+"'}");
+    String data = mapper.writeValueAsString(messages);
+//    response.getWriter().println("{'say' : '"+say+"'}");
+    response.getWriter().println(data);
 
   }
 
