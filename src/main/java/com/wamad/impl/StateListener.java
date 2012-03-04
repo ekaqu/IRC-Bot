@@ -1,9 +1,14 @@
 package com.wamad.impl;
 
 import com.google.common.base.Stopwatch;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.wamad.Message;
 import org.schwering.irc.lib.IRCEventListener;
 import org.schwering.irc.lib.IRCModeParser;
 import org.schwering.irc.lib.IRCUser;
+
+import java.util.List;
 
 /**
  * Date: 3/3/12
@@ -14,11 +19,13 @@ public class StateListener implements IRCEventListener {
 
   private boolean serverConnected = false;
   private String mode = null;
-  
+
+  private List<Message> messages = Lists.newLinkedList();
+
   public boolean isConnectedToServer() {
     return this.serverConnected;
   }
-  
+
   public String getMode() {
     return this.mode;
   }
@@ -59,11 +66,11 @@ public class StateListener implements IRCEventListener {
     log("Kick: chat %s, user %s, pass %s, msg %s", chan, user, passiveNick, msg);
     log("Time since start: " + stopwatch.elapsedMillis());
   }
-
   public void onMode(final String chan, final IRCUser user, final IRCModeParser modeParser) {
     log("Mode: chat %s, user %s, parser %s", chan, user, modeParser);
     log("Time since start: " + stopwatch.elapsedMillis());
   }
+
   public void onMode(final IRCUser user, final String passiveNick, final String mode) {
     log("Mode: user %s, pass %s, mode %s", user, passiveNick, mode);
     this.mode = mode;
@@ -92,6 +99,7 @@ public class StateListener implements IRCEventListener {
 
   public void onPrivmsg(final String target, final IRCUser user, final String msg) {
     log("Private Message: target %s, user %s, msg %s", target, user, msg);
+    messages.add(new MessageImpl(user, msg, target));
     log("Time since start: " + stopwatch.elapsedMillis());
   }
 
@@ -115,11 +123,14 @@ public class StateListener implements IRCEventListener {
     log("Time since start: " + stopwatch.elapsedMillis());
   }
 
-//  private static void log(String msg) {
-//    System.out.println("-- " + msg + " --");
-//  }
-  
   private static void log(String msg, Object... args) {
     System.out.println("-- "+ String.format(msg, args)+" --");
+  }
+
+
+  public List<Message> getAndClearMessages() {
+    List<Message> msgs = ImmutableList.copyOf(this.messages);
+    this.messages.clear();
+    return msgs;
   }
 }

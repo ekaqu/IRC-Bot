@@ -1,11 +1,13 @@
 package com.wamad.impl;
 
 import com.wamad.IRCClient;
+import com.wamad.Message;
 import org.schwering.irc.lib.IRCConnection;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkState;
@@ -79,6 +81,11 @@ public class IRCClientImpl implements IRCClient {
 
   public void privateMessage(final String user, final String msg) {
     conn.doPrivmsg(user, msg);
+  }
+
+  @Override
+  public List<Message> getAndClearMessages() {
+    return state.getAndClearMessages();
   }
 
   public void close() throws IOException {

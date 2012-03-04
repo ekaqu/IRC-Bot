@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,7 +34,7 @@ public class TestIRCClient {
 
   @Test(groups = "join", dependsOnGroups = "connect")
   public void testJoin() {
-    client.join("##gibson");
+    client.join("##gibson-2");
   }
   
   @Test(groups = "msg", dependsOnGroups = "join")
@@ -40,6 +42,13 @@ public class TestIRCClient {
     for (int i = 0; i < 10; i++) {
       client.privateMessage("the_minh_net", "("+i+") this is the test: " + new Date());
     }
+  }
+  
+  @Test(dependsOnGroups = "msg")
+  public void messages() throws InterruptedException {
+    TimeUnit.SECONDS.sleep(10);
+    List<Message> messageList = this.client.getAndClearMessages();
+    System.out.println(messageList);
   }
 
   @Test(dependsOnGroups = "msg")
