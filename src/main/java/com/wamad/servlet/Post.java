@@ -2,6 +2,7 @@ package com.wamad.servlet;
 
 import com.google.common.base.Throwables;
 import com.wamad.IRCClient;
+import com.wamad.Message;
 import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
 
 import javax.inject.Inject;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Date: 3/3/12
@@ -39,14 +42,20 @@ public class Post extends HttpServlet {
     }
   }
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    System.out.println(request.getParameter("content"));
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    String name = request.getParameter("name");
+    String say = request.getParameter("say");
+    this.client.say(say);
+
+    List<Message> messages = client.getAndClearMessages();
+    // convert
+
+//    response.setContentType("application/json");
     response.setContentType("text/html");
     response.setStatus(HttpServletResponse.SC_OK);
-    response.getWriter().println("<h1>Hello Servlet</h1>");
-    response.getWriter().println("session=" + request.getSession(true).getId());
-    //response.getWriter().println("<h1>Hello Servlet</h1>");
-//    response.sendRedirect("index.html?hello");
+    response.getWriter().println("{'say' : '"+say+"'}");
+
   }
 
 }
