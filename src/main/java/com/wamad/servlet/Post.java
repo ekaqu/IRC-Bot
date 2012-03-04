@@ -1,5 +1,11 @@
 package com.wamad.servlet;
 
+import com.google.common.base.Throwables;
+import com.wamad.IRCClient;
+import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +19,25 @@ import java.io.IOException;
  */
 @Singleton
 public class Post extends HttpServlet {
+  private final IRCClient client;
+  private final String chatRoom;
+
+  @Inject
+  public Post(final IRCClient client, @Named("wamad.irc.chat") final String chatRoom) {
+    this.client = client;
+    this.chatRoom = chatRoom;
+  }
+
+  @Override
+  public void init() throws ServletException {
+    super.init();
+    try {
+      this.client.init();
+      this.client.join(this.chatRoom);
+    } catch (IOException e) {
+      Throwables.propagate(e);
+    }
+  }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     System.out.println(request.getParameter("content"));
