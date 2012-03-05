@@ -9,11 +9,45 @@
     <artifactId>irc-bot</artifactId>
     <version>1.0</version>
 
+    <inceptionYear>2012</inceptionYear>
+
+    <organization>
+        <name>WAMAD</name>
+        <url>http://wamad.engr.sjsu.edu/</url>
+    </organization>
+
+    <scm>
+        <connection>scm:git:git://github.com/ekaqu/IRC-Bot.git</connection>
+        <developerConnection>scm:git:git@github.com:ekaqu/IRC-Bot.git
+        </developerConnection>
+        <url>https://ekaqu@github.com/ekaqu/IRC-Bot.git</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Minh Nguyen</name>
+        </developer>
+        <developer>
+            <name>Sumit Kumar</name>
+        </developer>
+        <developer>
+            <name>Arnold Bajet</name>
+        </developer>
+        <developer>
+            <name>David Capwell</name>
+        </developer>
+    </developers>
+
 
     <properties>
-      <licenseName>apache_v2</licenseName>
-      <inceptionYear>2012</inceptionYear>
-      <organizationName>WAMAD</organizationName>
+
     </properties>
 
     <dependencies>
@@ -76,33 +110,31 @@
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
             </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>license-maven-plugin</artifactId>
-            <version>1.0</version>
-            <configuration>
-              <verbose>false</verbose>
-              <addSvnKeyWords>true</addSvnKeyWords>
-            </configuration>
-            <executions>
-              <execution>
-                <id>first</id>
-                <goals>
-                <goal>update-file-header</goal>
-                </goals>
-                <phase>process-sources</phase>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.0</version>
                 <configuration>
-                  <licenseName>${licenseName}</licenseName>
-                  <inceptionYear>${inceptionYear}</inceptionYear>
-                  <organizationName>${organizationName}</organizationName>
-                  <roots>
-                    <root>src/main</root>
-                    <root>src/test</root>
-                  </roots>
+                    <verbose>false</verbose>
+                    <addSvnKeyWords>true</addSvnKeyWords>
                 </configuration>
-              </execution>
-            </executions>
-          </plugin>
+                <executions>
+                    <execution>
+                        <id>first</id>
+                        <goals>
+                            <goal>update-file-header</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <licenseName>apache_v2</licenseName>
+                            <roots>
+                                <root>src/main</root>
+                                <root>src/test</root>
+                            </roots>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
